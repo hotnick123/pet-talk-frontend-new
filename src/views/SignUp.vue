@@ -1,3 +1,5 @@
+
+
 <template>
     <div class="signup_wrap">
         <section class="signup-form">
@@ -5,33 +7,18 @@
             <form action="">
 
                 <div class="int-area">
-                    <label class="email_label" for="email">이메일</label>
-
-                    <div class="email_input">
-                        <span class="email_lacal">
-                            <input type="text" placeholder="이메일" name="email" id="email">
-                        </span>
-                        <span class="email_separator">@</span>
-                        <span class="email_domain">
-                            <select class="form-control empty">
-                                <option value="" disabled="">선택해주세요</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
-                                <option value="daum.net">daum.net</option>
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="hotmail.com">hotmail.com</option>
-                                <option value="outlook.com">outlook.com</option>
-                                <option value="icloud.com">icloud.com</option>
-                                <option value="_manual">직접입력</option>
-                            </select>
-                        </span>
+                    <label for="uid">아이디</label>
+                    <div class="id_description">
+                        영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
                     </div>
-
-                </div>
-
-                <div class="email_btn">
-                    <button type="button">이메일 인증하기</button>
+                    <input
+                        type="text"
+                        placeholder="아이디"
+                        autocomplete="off"
+                        required name="uid"
+                        id="uid"
+                        v-model="uid"
+                    >
                 </div>
 
                 <div class="int-area">
@@ -39,25 +26,81 @@
                     <div class="pw_description">
                         영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
                     </div>
-                        <input type="password" placeholder="비밀번호" name="pw" id="pw">
+                        <input
+                            type="password"
+                            placeholder="비밀번호"
+                            autocomplete="off"
+                            required
+                            minlength="8"
+                            name="pw"
+                            id="pw"
+                            v-model="password"
+                        >
                 </div>
 
                 <div class="int-area">
                     <label for="confirmPassword">비밀번호 확인</label>
-                    <input type="password" placeholder="비밀번호 확인" name="confirmPassword" id="confirmPassword">
+                    <input type="password" placeholder="비밀번호 확인" autocomplete="off" required name="confirmPassword" id="confirmPassword">
                 </div>
 
                 <div class="int-area">
                     <label for="nickname">닉네임</label>
-                    <div class="nick_description">다른 유저와 겹치지 않는 별명을 입력해주ㅅㅔ요. (2자~15자)</div>
-                    <input type="text" name="nickname" id="nickname" placeholder="별명 (2자~15자)">
+                    <div class="nick_description">다른 유저와 겹치지 않는 별명을 입력해주세요. (2자~15자)</div>
+                    <input
+                        type="text"
+                        name="nickname"
+                        id="nickname"
+                        placeholder="별명 (2자~15자)"
+                        maxlength="15"
+                        minlength="2"
+                        v-model="nickname"
+                        autocomplete="off"
+                        required
+                    >
                </div>
 
-<!--                <div class="int-area">-->
-<!--                    <label>약관동의</label>-->
-<!--                    -->
+                <div class="int-area">
+                    <label class="email_label" for="email">이메일</label>
+
+                    <div class="email_input">
+                        <span class="email_lacal">
+                            <input
+                                type="text"
+                                placeholder="이메일"
+                                autocomplete="off"
+                                required
+                                name="email"
+                                id="email"
+                                v-model="email"
+                            >
+                        </span>
+<!--                        <span class="email_separator">@</span>-->
+<!--                        <span class="email_domain">-->
+<!--                            <select class="form-control empty">-->
+<!--                                <option value="" disabled="">선택해주세요</option>-->
+<!--                                <option value="naver.com">naver.com</option>-->
+<!--                                <option value="hanmail.net">hanmail.net</option>-->
+<!--                                <option value="daum.net">daum.net</option>-->
+<!--                                <option value="gmail.com">gmail.com</option>-->
+<!--                                <option value="nate.com">nate.com</option>-->
+<!--                                <option value="hotmail.com">hotmail.com</option>-->
+<!--                                <option value="outlook.com">outlook.com</option>-->
+<!--                                <option value="icloud.com">icloud.com</option>-->
+<!--                                <option value="_manual">직접입력</option>-->
+<!--                            </select>-->
+<!--                        </span>-->
+                    </div>
+
+                </div>
+
+<!--                <div class="email_btn">-->
+<!--                    <v-btn>이메일 인증하기</v-btn>-->
 <!--                </div>-->
-                <button type="submit">회원가입하기</button>
+
+
+                <div class="btn-area">
+                    <button @click="onclickSignUp()">회원가입</button>
+                </div>
 
 
             </form>
@@ -69,10 +112,95 @@
 
 <script>
   export default {
-    name: "SignUp"
+    name: "SignUp",
+    data() {
+      return {
+        uid: '',
+        password: '',
+        nickname: '',
+        email: '',
+      }
+    },
+    methods: {
+      async onclickSignUp() {
+        await this.$store.dispatch("signUp", {
+          userId: this.uid,
+          password: this.password,
+          nickname: this.nickname,
+          email: this.email,
+        })
+        if (this.$store.state.isSignUp === true) {
+          this.$router.push({name: "Home"});
+        }
+      }
+    }
   }
+
+
+
 </script>
 
 <style scoped>
+
+    .signup_wrap {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+        /*flex-direction: column;*/
+        /*justify-content: center;*/
+        /*align-content: space-between;*/
+    }
+
+    .signup-form {
+
+    }
+    .signup-form > h1 {
+        font-size: 33px;
+        color: rgb(229, 119, 175);
+        font-family: 'Gowun Dodum', sans-serif;
+        font-weight: bold;
+    }
+
+    .int-area {
+        /*width: 500px;*/
+        margin-top: 25px;
+    }
+
+    .int-area > label {
+        font-weight: bold;
+        font-family: 'Gowun Dodum', sans-serif;
+        font-size: 17px;
+    }
+
+    .id_description,
+    .pw_description,
+    .nick_description {
+        font-size: 13px;
+        font-family: 'Gowun Dodum', sans-serif;
+    }
+
+    .int-area input {
+        width: 100%;
+        padding: 15px 10px;
+        border: none;
+        border: 1px solid rgb(204, 204, 204);
+        outline: none;
+        font-size: 15px;
+        font-family: 'Gowun Dodum', sans-serif;
+    }
+
+    .btn-area button {
+        width: 340px;
+        height: 50px;
+        color: #333;
+        background-color: rgb(236, 152, 195);
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        font-family: 'Gowun Dodum', sans-serif;
+    }
 
 </style>

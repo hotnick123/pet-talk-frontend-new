@@ -13,97 +13,52 @@ a {
     text-decoration: none;
 }
 
-header {
-    background-color: rgba(247, 253, 95, 0.82);
-}
-
-.navbar {
-    width: 1200px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0px;
-    /*background-color: red;*/
-}
-
-.navbar_logo a {
-    font-size: 35px;
-    color: rgb(229, 119, 175);
-    font-family: 'Poor Story', cursive;
-    font-weight: bold;
-}
-
-.navbar_menu {
-    display: flex;
-    padding-left: 0;
-}
-
-.navbar_menu li {
-    padding: 8px 27px;
-    font-family: 'Poor Story', cursive;
-    font-weight: bold;
-    font-size: 17px;
-}
-
-
-.navbar_gnb {
-    display: flex;
-}
-
-.navbar_gnb li {
-    padding: 8px 5px;
-    font-size: 13px;
-    font-family: 'Poor Story', cursive;
-    /*font-weight: bold;*/
-}
 
 
 
 
 /*header {*/
-/*    padding: 20px 0;*/
 /*    background-color: rgba(247, 253, 95, 0.82);*/
 /*}*/
 
-/*header .header_wrap {*/
-/*    width: 1000px;*/
-/*    background-color: aqua;*/
+/*.navbar {*/
+/*    width: 1200px;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 12px 0px;*/
+/*    !*background-color: red;*!*/
 /*}*/
 
-/*header h1{*/
-/*    float: left;*/
-/*}*/
-
-/*header h1 span {*/
+/*.navbar_logo a {*/
+/*    font-size: 35px;*/
 /*    color: rgb(229, 119, 175);*/
+/*    font-family: 'Poor Story', cursive;*/
+/*    font-weight: bold;*/
 /*}*/
 
-/*nav {*/
-
+/*.navbar_menu {*/
+/*    display: flex;*/
+/*    padding-left: 0;*/
 /*}*/
 
-/*nav ul.header_menu {*/
-
+/*.navbar_menu li {*/
+/*    padding: 8px 27px;*/
+/*    font-family: 'Poor Story', cursive;*/
+/*    font-weight: bold;*/
+/*    font-size: 17px;*/
 /*}*/
 
-/*nav ul.header_menu li {*/
-/*    float: left;*/
-/*    background-color: #42b983;*/
+
+/*.navbar_gnb {*/
+/*    display: flex;*/
 /*}*/
 
-/*nav ul.header_menu li router-link {*/
-/*    display: block;*/
+/*.navbar_gnb li {*/
+/*    padding: 8px 5px;*/
+/*    font-size: 13px;*/
+/*    font-family: 'Poor Story', cursive;*/
+/*    !*font-weight: bold;*!*/
 /*}*/
 
-/*ul.gnb_Menu {*/
-
-/*    float: right;*/
-/*    background-color: aqua;*/
-/*}*/
-
-/*ul.gnb_Menu li {*/
-/*    float: left;*/
-/*    padding: 5px;*/
-/*    font-size: 12px;*/
-/*}*/
 

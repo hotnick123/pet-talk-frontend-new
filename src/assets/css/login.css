@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Gowun+Dodum&family=Nanum+Gothic+Coding&family=Poor+Story&display=swap');
 
-.wrap {
-    height: 50vh;
+.login_wrap {
+    height: 60vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
 }
+
 
 
 ol, ul {
@@ -18,8 +20,7 @@ a {
 }
 
 .login-form {
-    width: 400px;
-
+    width: 340px;
 }
 
 .login-form h1 {
@@ -27,7 +28,7 @@ a {
     color: rgb(229, 119, 175);
     font-family: 'Poor Story', cursive;
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
 .int-area {
@@ -41,7 +42,7 @@ a {
     border: 1px solid rgb(204, 204, 204);
     outline: none;
     font-size: 15px;
-    font-family: 'Nanum Gothic Coding', monospace;
+    font-family: 'Gowun Dodum', sans-serif;
 }
 
 .btn-area {
@@ -49,8 +50,7 @@ a {
 }
 
 .btn-area button {
-    margin-left: 18px;
-    width: 367px;
+    width: 340px;
     height: 50px;
     color: #333;
     background-color: rgb(236, 152, 195);
@@ -61,7 +61,7 @@ a {
 }
 
 .caption {
-    margin-top: 20px;
+    margin-top: 25px;
     display: flex;
 }
 

@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main style="width: 100%">
       <Navigation/>
-      <router-view/>
+      <router-view class="page" />
     </v-main>
   </v-app>
 </template>

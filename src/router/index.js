@@ -1,17 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
+import Home from "../views/Home";
+import MyPage from "../views/MyPage";
+import BoardList from "../views/community/List";
+import BoardDetail from "../views/community/Detail";
+import BoardModify from "../views/community/Modify";
+import StoreList from "../views/Store";
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
 
   {
     path: '/login',
@@ -23,7 +28,43 @@ const routes = [
     name: 'SignUp',
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
     component: SignUp
-  }
+  },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: MyPage
+  },
+  {
+    path: '/community',
+    name: 'BoardList',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: BoardList
+  },
+  {
+    path: '/community/detail/:id',
+    name: 'BoardDetail',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: BoardDetail
+  },
+  {
+    path: '/community/create',
+    name: 'BoardCreate',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: BoardModify
+  },
+  {
+    path: '/community/modify/:id',
+    name: 'BoardModify',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: BoardModify
+  },
+  {
+    path: '/store',
+    name: 'StoreList',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: StoreList
+  },
 ]
 
 const router = new VueRouter({
