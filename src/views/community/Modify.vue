@@ -20,12 +20,12 @@
 	</div>
 </template>
 <script>
-  import axios from "axios";
+  import api from "../../api/api";
   export default {
     name: 'BoardModify',
     mounted() {
       if (this.id) {
-        axios.get(`http://localhost:8081/board/${this.id}`)
+        api.get(`/board/${this.id}`)
           .then((res) => {
             this.detail.title = res.data.data.title;
             this.detail.content = res.data.data.content;
@@ -40,6 +40,7 @@
     },
     data() {
       return {
+        userId: this.$store.state.userInfo.id,
         id: this.$route.params.id,
         detail: {
           title: '',
@@ -55,10 +56,11 @@
     methods: {
       onClickSaveBtn() {
         if (this.id === undefined) {
-          axios.post(`http://localhost:8081/board/create`, {
+          // 글작성
+          api.post(`/board/create`, {
             title: this.detail.title,
             content: this.detail.content,
-            writer: this.detail.writer,
+            writer: this.userId,
           })
             .then((res) => {
               if (res.data.resultCode === "SUCCESS") {
@@ -72,10 +74,11 @@
             alert("등록 실패");
           });
         } else {
-          axios.post(`http://localhost:8081/board/update/${this.id}`, {
+          // 글수정
+          api.post(`/board/update/${this.id}`, {
             title: this.detail.title,
             content: this.detail.content,
-            writer: this.detail.writer,
+            writer: this.userId,
           })
             .then((res) => {
               if (res.data.resultCode === "SUCCESS") {

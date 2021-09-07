@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import axios from "axios";
+  import api from "../../api/api";
   // import dayjs from "dayjs";
 
   export default {
@@ -85,7 +85,7 @@
     },
     methods: {
       async fetchBoardList() {
-        return await axios.get(`http://localhost:8081/board/list/${this.currentPage}/${this.perPage}`)
+        return await api.get(`/board/list/${this.currentPage}/${this.perPage}`)
           .then((res) => {
             this.boardList = res.data.data.content;
             this.totalPage = res.data.data.totalPages;
