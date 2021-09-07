@@ -5,24 +5,45 @@
 			<div class="content-detail-content-info">
 				<div class="content-detail-content-info-left">
 					<div class="content-detail-content-info-left-number">{{id}}</div>
-					<div class="content-detail-content-info-left-subject">{{this.detail.title}}</div>
+					<div class="content-detail-content-info-left-subject">{{this.board.title}}</div>
 				</div>
 				<div class="content-detail-content-info-right">
-					<div class="content-detail-content-info-right-user">글쓴이: {{this.detail.writer}}</div>
-					<div class="content-detail-content-info-right-created">등록일: {{this.detail.createdAt}}</div>
+					<div class="content-detail-content-info-right-user">글쓴이: {{this.board.writerName}}</div>
+					<div class="content-detail-content-info-right-created">등록일: {{this.board.createdAt}}</div>
 				</div>
 			</div>
-			<div class="content-detail-content">{{this.detail.content}}</div>
+			<div class="content-detail-content">{{this.board.content}}</div>
 			<div class="content-detail-button">
 				<b-button variant="primary" @click="onClickModifyBtn">수정</b-button>&nbsp;
 				<b-button variant="warning" @click="onClickDeleteBtn">삭제</b-button>
 				<b-button variant="secondary" @click="onClickListBtn">목록</b-button>
 			</div>
-			<div class="content-detail-comment">
-				<CommentList :contentId="contentId"></CommentList>
+
+			<div class="int-area">
+				<input
+								type="text"
+								placeholder="댓글을 입력해주세요."
+								autocomplete="off"
+								required
+								v-model="commentInput"
+				>
+				<div class="comment_btn">
+					<button @click="onClickCommentBtn">등록</button>
+				</div>
 			</div>
+
+			<div v-for="(cl, index) in commentList" class="content-detail-comment" :key="index">
+				<div>
+					<span>{{cl.writer}}</span>
+					<span>{{cl.content}}</span>
+					<span>{{cl.createdAt}}</span>
+				</div>
+			</div>
+
 		</b-card>
 	</div>
+
+
 </template>
 
 <script>
@@ -30,31 +51,41 @@
 
   export default {
     name: "BoardDetail",
-    mounted() {
-      axios.get(`http://localhost:8081/board/${this.id}`)
-        .then((res) => {
-          this.detail.title = res.data.data.title;
-          this.detail.content = res.data.data.content;
-          this.detail.writer = res.data.data.writer;
-          this.detail.createdAt = res.data.data.createdAt;
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("게시글 조회 오류");
-        })
+    async mounted() {
+      await this.fetchBoardDetail();
     },
     data() {
       return {
         id: this.$route.params.id,
-        detail: {
+        commentList: [],
+        board: {
+          id: '',
           title: '',
           content: '',
           writer: '',
           createdAt: '',
+          writerName: '',
         },
+        commentInput: '',
       };
     },
     methods: {
+      async fetchBoardDetail() {
+        await axios.get(`http://localhost:8081/board/${this.id}`)
+          .then((res) => {
+            console.log(res);
+            this.board.title = res.data.data.board.title;
+            this.board.content = res.data.data.board.content;
+            this.board.writer = res.data.data.board.writer;
+            this.board.writerName = res.data.data.board.writerName;
+            this.board.createdAt = res.data.data.board.createdAt;
+            this.commentList = res.data.data.comment ? res.data.data.comment : [];
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("게시글 조회 오류");
+          })
+      },
       onClickModifyBtn() {
         this.$router.push({name: "BoardModify", params: {id: this.id}});
       },
@@ -77,10 +108,31 @@
       },
       onClickListBtn() {
         this.$router.push({name: "BoardList"});
+      },
+
+      onClickCommentBtn() {
+        axios.post(`http://localhost:8081/comment/create/COMMUNITY/${this.id}`, {
+          writer: 1,
+          content: this.commentInput,
+        })
+          .then((res) => {
+            if (res.data.resultCode === "SUCCESS") {
+              // this.$router.push({name: "BoardDetail", params: {id: this.id}});
+              alert("댓글이 등록되었습니다.");
+              this.fetchBoardDetail();
+            } else {
+              alert("댓글 등록 실패");
+            }
+          }).catch((err) => {
+          console.log(err);
+          alert("댓글 등록 실패");
+        })
       }
+
     },
-    components: {}
-  };
+
+  }
+
 </script>
 <style scoped>
 	.content-detail-content-info {
