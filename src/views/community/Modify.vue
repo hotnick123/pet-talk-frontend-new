@@ -45,7 +45,7 @@
         detail: {
           title: '',
           content: '',
-          writer: 1,
+          writer: '',
           createdAt: '',
         },
       }

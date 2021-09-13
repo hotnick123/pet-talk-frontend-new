@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="detail_wrap">
     <h1>커뮤니티</h1>
     <b-card>
       <div class="content-detail-content-info">
@@ -14,8 +14,8 @@
       </div>
       <div class="content-detail-content">{{ this.board.content }}</div>
       <div class="content-detail-button">
-        <b-button variant="primary" @click="onClickModifyBtn">수정</b-button>&nbsp;
-        <b-button variant="warning" @click="onClickDeleteBtn">삭제</b-button>
+        <b-button variant="primary" @click="onClickModifyBtn" v-if="userId === board.writer">수정</b-button>&nbsp;
+        <b-button variant="warning" @click="onClickDeleteBtn" v-if="userId === board.writer">삭제</b-button>
         <b-button variant="secondary" @click="onClickListBtn">목록</b-button>
       </div>
 
@@ -26,17 +26,14 @@
             autocomplete="off"
             required
             v-model="commentInput"
-        >
-        <div class="comment_btn">
-          <button @click="onClickCommentBtn">등록</button>
-        </div>
+        ><button @click="onClickCommentBtn">등록</button>
       </div>
 
       <div v-for="(cl, index) in commentList" class="content-detail-comment" :key="index">
         <div>
-          <span>{{ cl.writer }}</span>
-          <span>{{ cl.content }}</span>
-          <span>{{ cl.createdAt }}</span>
+          <span class="commentNick">{{ cl.writerName }}</span>
+          <p class="commentContent">{{ cl.content }}</p>
+          <span class="commentTime">{{ cl.createdAt }}</span>
         </div>
       </div>
     </b-card>
@@ -45,11 +42,17 @@
 
 <script>
 import api from "../../api/api";
+import dayjs from "dayjs";
 
 export default {
   name: "BoardDetail",
   async mounted() {
-    await this.fetchBoardDetail();
+    if (!this.userId) {
+      alert("권한이 없습니다. 로그인 화면으로 이동합니다.");
+      this.$router.push({name:"Login"});
+    } else {
+      await this.fetchBoardDetail();
+    }
   },
   data() {
     return {
@@ -76,8 +79,11 @@ export default {
             this.board.content = res.data.data.board.content;
             this.board.writer = res.data.data.board.writer;
             this.board.writerName = res.data.data.board.writerName;
-            this.board.createdAt = res.data.data.board.createdAt;
+            this.board.createdAt = dayjs(res.data.data.board.createdAt).format("YYYY-MM-DD HH:mm");
             this.commentList = res.data.data.comment ? res.data.data.comment : [];
+            this.commentList.map((v) => {
+              v.createdAt = dayjs(v.createdAt).format("YYYY-MM-DD HH:mm");
+            })
           })
           .catch((err) => {
             console.log(err);
@@ -133,6 +139,10 @@ export default {
 
 </script>
 <style scoped>
+.detail_wrap {
+
+}
+
 .content-detail-content-info {
   border: 1px solid black;
   display: flex;
@@ -171,9 +181,9 @@ export default {
 }
 
 .content-detail-comment {
-  border: 1px solid black;
+  border-top: 1px solid black;
   margin-top: 1rem;
-  padding: 2rem;
+  padding: 10px;
 }
 
 .page {
@@ -188,5 +198,38 @@ h1 {
   font-weight: bold;
   width: 100%;
   color: rgb(229, 119, 175);
+}
+
+.int-area{
+	margin-top: 20px;
+	width: 100%;
+}
+.int-area input {
+	padding: 10px;
+	float: left;
+	width: 95%;
+}
+
+.int-area > button{
+	padding: 10px;
+	color: #fff;
+	background-color: rgb(229, 139, 185);
+}
+
+
+.commentNick {
+	font-weight: bold;
+	margin-right: 20px;
+	margin-bottom: 5px;
+	display: block;
+}
+.commentContent {
+	font-size: 18px;
+	width: 80%;
+	float: left;
+}
+
+.commentTime {
+
 }
 </style>

@@ -43,7 +43,7 @@
 
 <script>
   import api from "../../api/api";
-  // import dayjs from "dayjs";
+  import dayjs from "dayjs";
 
   export default {
     name: 'BoardList',
@@ -53,7 +53,7 @@
     data() {
       return {
         currentPage: 1, // 현재 페이지
-        perPage: 15, // 페이지당 보여줄 갯수
+        perPage: 10, // 페이지당 보여줄 갯수
         totalPage: '',
         totalItems: '',
         // bootstrap 'b-table' 필드 설정
@@ -67,12 +67,13 @@
             label: "제목"
           },
           {
-            key: "writer",
+            key: "writerName",
             label: "작성자"
           },
           {
             key: "createdAt",
             label: "등록일",
+
           },
           {
             key: "count",
@@ -88,6 +89,9 @@
         return await api.get(`/board/list/${this.currentPage}/${this.perPage}`)
           .then((res) => {
             this.boardList = res.data.data.content;
+            this.boardList.map((v) => {
+              v.createdAt = dayjs(v.createdAt).format("YYYY-MM-DD HH:mm");
+            })
             this.totalPage = res.data.data.totalPages;
             this.totalItems = res.data.data.totalElements;
             console.log(this.boardList);

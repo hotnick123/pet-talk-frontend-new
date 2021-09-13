@@ -8,6 +8,7 @@ import BoardList from "../views/community/List";
 import BoardDetail from "../views/community/Detail";
 import BoardModify from "../views/community/Modify";
 import StoreList from "../views/Store";
+import GalleryList from  "../views/gallery/List"
 
 Vue.use(VueRouter)
 
@@ -64,6 +65,12 @@ const routes = [
     name: 'StoreList',
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
     component: StoreList
+  },
+  {
+    path: '/gallery',
+    name: 'GalleryList',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: GalleryList
   },
 ]
 

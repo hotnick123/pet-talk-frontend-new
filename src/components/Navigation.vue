@@ -9,7 +9,7 @@
       <v-tabs>
         <v-tab><router-link to="/">반려상식</router-link></v-tab>
         <v-tab><router-link to="/community">커뮤니티</router-link></v-tab>
-        <v-tab><router-link to="/">갤러리</router-link></v-tab>
+        <v-tab><router-link to="/gallery">갤러리</router-link></v-tab>
         <v-tab><router-link to="/">동물병원</router-link></v-tab>
         <v-tab><router-link to="/store">스토어</router-link></v-tab>
       </v-tabs>

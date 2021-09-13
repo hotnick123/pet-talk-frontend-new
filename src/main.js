@@ -10,11 +10,13 @@ import './assets/css/login.css';
 import './assets/css/main.css';
 import './assets/css/reset.css';
 import './assets/css/signup.css';
+import Dayjs from 'dayjs';
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
+Vue.use(Dayjs);
 
 Vue.config.productionTip = false
 
