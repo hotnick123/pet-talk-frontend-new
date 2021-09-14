@@ -2,8 +2,6 @@
   <div class="signup_wrap">
     <section class="signup-form">
       <h1>회원가입</h1>
-      <form action="">
-
         <div class="int-area">
           <label for="uid">아이디</label>
           <div class="id_description">
@@ -98,12 +96,8 @@
 
 
         <div class="btn-area">
-          <button @click="onclickSignUp()">회원가입</button>
+          <button @click="onclickSignUp">회원가입</button>
         </div>
-
-
-      </form>
-
 
     </section>
   </div>
@@ -111,7 +105,7 @@
 
 <script>
 import {validateEmail} from "../assets/js/validation.js";
-
+import api from "../api/api";
 export default {
   name: "SignUp",
   data() {
@@ -125,16 +119,28 @@ export default {
   },
   methods: {
     async onclickSignUp() {
-      if (this.validation()) {
-        await this.$store.dispatch("signUp", {
+      const validate = this.validation();
+      if (validate) {
+        console.log(validate);
+        await api.post(`/user/signup`, {
           userId: this.uid,
           password: this.password,
           nickname: this.nickname,
           email: this.email,
         })
-        if (this.$store.state.isSignUp === true) {
-          this.$router.push({name: "Home"});
-        }
+          .then((res) => {
+            if (res.data.resultCode == "SUCCESS") {
+              alert("회원가입이 완료 되었습니다. 로그인 하세요.");
+              this.$router.push({name: "Login"});
+            } else {
+              alert(res.data.message);
+            }
+          })
+        .catch((e) => {
+          console.log(e);
+        })
+      } else {
+        return;
       }
     },
 
@@ -144,7 +150,7 @@ export default {
         return false;
       }
 
-      if (this.password !== this.password2 || this.password.length < 8 ) {
+      if (this.password !== this.password2) {
         alert('비밀번호가 일치하지 않습니다. 다시 확인해주세요.');
         return false;
       }

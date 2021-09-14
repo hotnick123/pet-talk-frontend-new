@@ -85,7 +85,7 @@ import {Swiper, SwiperSlide} from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 
 export default {
-  name: 'swiper-example-loop',
+  name: 'Home',
   title: 'Loop mode / Infinite loop',
   components: {Swiper, SwiperSlide},
   async mounted() {

@@ -10,7 +10,7 @@
             </div>
 
             <div class="int-area pw_input">
-                <input type="password" placeholder="비밀번호" autocomplete="off" required v-model="password">
+                <input type="password" placeholder="비밀번호" autocomplete="off" required v-model="password" @keyup="onKeyupLogin">
             </div>
 
             <div class="btn-area">
@@ -46,11 +46,30 @@ export default {
   methods: {
     // ...mapActions(["login"]),
     onClickLogin() {
+      if (this.validation()) {
         this.$store.dispatch("login", {
           loginId: this.uid,
           password: this.password,
         })
         this.$router.push({name: "Home"});
+      }
+    },
+    validation() {
+      if (!this.uid) {
+        alert("아이디를 입력하세요.");
+        return false;
+      }
+      if (!this.password) {
+        alert("비밀번호를 입력하세요.");
+        return false;
+      }
+      return true;
+    },
+    onKeyupLogin(e) {
+      console.log(e);
+      if (e.keyCode === 13) {
+        this.onClickLogin();
+      }
     }
   }
 }

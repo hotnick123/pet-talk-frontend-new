@@ -100,7 +100,7 @@ export default {
     },
     onClickDeleteBtn() {
       if (confirm("삭제하시겠습니까?")) {
-        api.post(`/board/delete/${this.id}`)
+        api.delete(`/gallery/delete/${this.id}`)
             .then((res) => {
               if (res.data.data === true) {
                 alert('글 삭제 성공');

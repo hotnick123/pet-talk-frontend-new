@@ -93,9 +93,9 @@ export default {
     onClickModifyBtn() {
       this.$router.push({name: "BoardModify", params: {id: this.id}});
     },
-    onClickDeleteBtn() {
+    async onClickDeleteBtn() {
       if (confirm("삭제하시겠습니까?")) {
-        api.post(`/board/delete/${this.id}`)
+        await api.delete(`/board/delete/${this.id}`)
             .then((res) => {
               if (res.data.data === true) {
                 alert('글 삭제 성공');
