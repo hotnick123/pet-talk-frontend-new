@@ -116,7 +116,7 @@ export default {
       }
     },
     onClickListBtn() {
-      this.$router.push({name: "BoardList"});
+      this.$router.push({name: "GalleryList"});
     },
 
     async onClickCommentBtn() {

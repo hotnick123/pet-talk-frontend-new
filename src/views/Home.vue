@@ -27,11 +27,6 @@
 							<strong>{{ `${index + 1}위` }}</strong> <em>{{ c.title }}</em> <span>{{ c.count }}</span>
 						</router-link>
 					</li>
-					<li v-for="(c, index) in communityList" :key="index">
-						<router-link :to="`/community/detail/${c.id}`">
-							<strong>{{ `${index + 1}위` }}</strong> <em>{{ c.title }}</em> <span>{{ c.count }}</span>
-						</router-link>
-					</li>
 
 				</ul>
 			</article>
@@ -47,11 +42,6 @@
 <!--					</router-link>-->
 					<li class="ranking_subtitle"><strong>순위</strong><em>제목</em><span>조회수</span></li>
 
-					<li v-for="(g, index) in galleryList" :key="index">
-						<router-link :to="`/gallery/detail/${g.id}`">
-							<strong>{{ `${index + 1}위` }}</strong> <em>{{ g.title }}</em> <span>{{ g.count }}</span>
-						</router-link>
-					</li>
 					<li v-for="(g, index) in galleryList" :key="index">
 						<router-link :to="`/gallery/detail/${g.id}`">
 							<strong>{{ `${index + 1}위` }}</strong> <em>{{ g.title }}</em> <span>{{ g.count }}</span>
@@ -188,10 +178,16 @@
 
 
 	/*이미지 슬라이드*/
+	.swiper-container {
+		--swiper-theme-color: #fff;
+		--swiper-pagination-color: #ffffff;
+	}
+
+
 	.swiper {
 		height: auto;
 		/*width: 1200px;*/
-		margin-top: 10px;
+		/*margin-top: 10px;*/
 	}
 
 	swiper-slide {
@@ -206,17 +202,24 @@
 		width: 100%;
 	}
 
+
+
 	/*랭킹*/
 	#ranking_wrap {
 		width: 1200px;
 		/*height: 430px; 430이 맞음*/
-		height: 500px;
 		margin-top: 80px;
 		/*padding: 20px;*/
 		/*border: 1px solid red;*/
 		/*display: flex;*/
 		/*justify-content: space-between;*/
 		/*align-items: center;*/
+	}
+
+	#ranking_wrap:after {
+		content: "";
+		display: block;
+		clear: both;
 	}
 
 	#ranking_wrap .ranking {
@@ -297,10 +300,13 @@
 		transition: 0.5s;
 		/*background-color: rgb(252, 228, 240);*/
 		margin-top: 50px;
-		clear: both;
-
-		height: 200px;
 		/*border: 1px solid red;*/
+	}
+
+	#icon_wrap:after {
+		content: "";
+		display: block;
+		clear: both;
 	}
 
 	#icon_wrap .inner {
@@ -352,7 +358,8 @@
 		transform: scale(1.2);
 	}
 
+	/*하단 줄배너*/
 	.banner {
-		margin-top: 50px;
+		margin-top: 150px;
 	}
 </style>

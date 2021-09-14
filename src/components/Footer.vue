@@ -51,11 +51,17 @@
 <style scoped>
 	#footer {
 		background: #fff;
-		margin-top: 100px;
+		margin-top: 300px;
 		position: relative;
 		transition: 0.5s;
 		border-top: 1px dashed #ddd;
 		padding: 50px 100px;
+	}
+
+	#footer:after {
+		content: "";
+		display: block;
+		clear: both;
 	}
 
 	#footer .inner {

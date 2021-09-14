@@ -29,12 +29,11 @@
 				<li v-if="!this.$store.state.isLogin || this.$store.state.isLogin === false">
 					<router-link to="/login">로그인</router-link>
 					<router-link to="/signup">회원가입</router-link>
-					<router-link to="/mypage">내정보</router-link>
 				</li>
 				<li v-else>
-          <div>{{nickName}}님 환영합니다.</div>
+          <div class="loginUser"><span>{{nickName}}</span>님</div>
 					<router-link to="/mypage">내정보</router-link>
-					<div @click="onClickLogout">로그아웃</div>
+					<button @click="onClickLogout">로그아웃</button>
 				</li>
 			</ul>
 
@@ -101,6 +100,7 @@
 
 	.v-sheet.v-card:not(.v-sheet--outlined) {
 		box-shadow: none;
+		border-bottom: 1px solid #eee;
 	}
 
 	/*background-color: rgba(247, 253, 95, 0.82);*/
@@ -114,6 +114,8 @@
 	.v-sheet.v-toolbar:not(.v-sheet--outlined) {
 		box-shadow: none;
 	}
+
+
 
 	/*로고*/
 	.v-toolbar__title a {
@@ -152,14 +154,25 @@
 		font-size: 11px;
 		font-family: 'Gowun Dodum', sans-serif;
 		font-weight: bold;
+		/*border: 1px solid red;*/
+
 	}
 
 	.navbar_gnb li a {
 		color: #555;
+		/*float: left;*/
 	}
 
 	.navbar_gnb li a:nth-of-type(1) {
 		margin-right: 7px;
+	}
+
+	.navbar_gnb li .loginUser {
+		font-size: 13px;
+	}
+
+	.navbar_gnb li .loginUser > span {
+		background: linear-gradient(to top, #a3f5a8 50%, transparent 50%);
 	}
 
 	.v-application ul, .v-application ol {

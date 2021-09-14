@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       currentPage: 1, // 현재 페이지
-      perPage: 3, // 페이지당 보여줄 갯수
+      perPage: 9, // 페이지당 보여줄 갯수
       totalPage: '',
       totalItems: '',
       // bootstrap 'b-table' 필드 설정
@@ -143,6 +143,7 @@ em {
   font-family: 'Gowun Dodum', sans-serif;
 }
 
+
 h1 {
   font-size: 33px;
   font-weight: bold;
@@ -156,6 +157,12 @@ h1 {
 
 .btn_wrap {
   width: 100%;
+}
+
+.btn_wrap:after {
+	content: "";
+	display: block;
+	clear: both;
 }
 
 .btn {
@@ -174,5 +181,12 @@ h1 {
 .pagination {
   margin-top: 50px;
 }
+
+.pagination:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
 
 </style>
