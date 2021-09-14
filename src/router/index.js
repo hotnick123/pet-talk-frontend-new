@@ -9,6 +9,8 @@ import BoardDetail from "../views/community/Detail";
 import BoardModify from "../views/community/Modify";
 import StoreList from "../views/Store";
 import GalleryList from  "../views/gallery/List"
+import GalleryModify from  "../views/gallery/Modify"
+import GalleryDetail from  "../views/gallery/Detail"
 
 Vue.use(VueRouter)
 
@@ -71,6 +73,24 @@ const routes = [
     name: 'GalleryList',
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
     component: GalleryList
+  },
+  {
+    path: '/gallery/modify/:id',
+    name: 'GalleryModify',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: GalleryModify,
+  },
+  {
+    path: '/gallery/create',
+    name: 'GalleryCreate',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: GalleryModify
+  },
+  {
+    path: '/gallery/detail/:id',
+    name: 'GalleryDetail',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
+    component: GalleryDetail
   },
 ]
 

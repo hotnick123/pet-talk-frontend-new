@@ -32,6 +32,7 @@
 					<router-link to="/mypage">내정보</router-link>
 				</li>
 				<li v-else>
+          <div>{{nickName}}님 환영합니다.</div>
 					<router-link to="/mypage">내정보</router-link>
 					<div @click="onClickLogout">로그아웃</div>
 				</li>
@@ -77,6 +78,7 @@
     name: "Navigation",
     data() {
       return {
+        nickName: this.$store.state.userInfo.nickname,
         isLogin: undefined,
       }
     },

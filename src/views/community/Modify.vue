@@ -23,14 +23,15 @@
   import api from "../../api/api";
   export default {
     name: 'BoardModify',
-    mounted() {
+    async mounted() {
       if (this.id) {
-        api.get(`/board/${this.id}`)
+        await api.get(`/board/${this.id}`)
           .then((res) => {
-            this.detail.title = res.data.data.title;
-            this.detail.content = res.data.data.content;
-            this.detail.writer = res.data.data.writer;
-            this.detail.createdAt = res.data.data.createdAt;
+            this.detail.title = res.data.data.board.title;
+            this.detail.content = res.data.data.board.content;
+            this.detail.writer = res.data.data.board.writer;
+            this.detail.createdAt = res.data.data.board.createdAt;
+            console.log(res.data.data.board);
           })
           .catch((err) => {
             console.log(err);

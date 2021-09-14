@@ -2,16 +2,24 @@
 
 	<div class="board_wrap">
 		<h1>커뮤니티</h1>
-		<b-table
+<!--		<b-table-->
+<!--      striped-->
+<!--      hover-->
+<!--      :items="boardList"-->
+<!--      :per-page="perPage"-->
+<!--      :current-page="currentPage"-->
+<!--      :fields="fields"-->
+<!--      @row-clicked="rowClick"-->
+<!--		></b-table>-->
 
-						striped
-						hover
-						:items="boardList"
-						:per-page="perPage"
-						:current-page="currentPage"
-						:fields="fields"
-						@row-clicked="rowClick"
-		></b-table>
+    <div v-for="(b, index) in boardList" :key="index">
+      <span>{{b[0].id}}</span>
+      <router-link :to="`/community/detail/${b[0].id}`"><span>{{b[0].title}}</span></router-link>
+      <span>{{b[0].writerName}}</span>
+      <span>{{b[0].createdAt}}</span>
+      <span>{{b[0].count}}</span>
+    </div>
+
 		<!--		<div class="text-center">-->
 		<!--			<v-container>-->
 		<!--				<v-row justify="center">-->
@@ -91,7 +99,7 @@
           .then((res) => {
             this.boardList = res.data.data.content;
             this.boardList.map((v) => {
-              v.createdAt = dayjs(v.createdAt).format("YYYY-MM-DD HH:mm");
+              v[0].createdAt = dayjs(v[0].createdAt).format("YYYY-MM-DD HH:mm");
             })
             this.totalPage = res.data.data.totalPages;
             this.totalItems = res.data.data.totalElements;
@@ -109,9 +117,9 @@
       onClickWriteBtn() {
         this.$router.push({name: 'BoardCreate'});
       },
-      handlerPagenation(v) {
+      async handlerPagenation(v) {
         this.currentPage = v;
-        this.fetchBoardList();
+        await this.fetchBoardList();
       }
     },
     computed: {
