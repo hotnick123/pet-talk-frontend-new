@@ -23,12 +23,12 @@
 					</v-card-title>
 
 					<v-card-subtitle>
-						글 내용 --- - -- - - --
+						야옹
 					</v-card-subtitle>
 
 					<v-list-item>
 						<v-list-item-subtitle>
-							<strong>닉네임1</strong> <span>2021-09-14</span> <em>조회 10</em>
+							<strong>닉네임1</strong> <span>2021-09-14</span>
 						</v-list-item-subtitle>
 
 					</v-list-item>
@@ -49,12 +49,12 @@
 					</v-card-title>
 
 					<v-card-subtitle>
-						글 내용 --- - -- - - --
+						ㅋ
 					</v-card-subtitle>
 
 					<v-list-item>
 						<v-list-item-subtitle>
-							<strong>닉네임1</strong> <span>2021-09-14</span> <em>조회 10</em>
+							<strong>닉네임1</strong> <span>2021-09-14</span>
 						</v-list-item-subtitle>
 
 					</v-list-item>
