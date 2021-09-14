@@ -1,33 +1,44 @@
 <template>
-  <v-card width="100%">
-    <v-toolbar dense width="1200px" >
+	<v-card width="100%">
+		<v-toolbar dense width="1200px">
 
-      <v-toolbar-title>
-        <router-link to="/">PETTALK</router-link>
-      </v-toolbar-title>
+			<v-toolbar-title>
+				<router-link to="/">PETTALK</router-link>
+			</v-toolbar-title>
 
-      <v-tabs>
-        <v-tab><router-link to="/">반려상식</router-link></v-tab>
-        <v-tab><router-link to="/community">커뮤니티</router-link></v-tab>
-        <v-tab><router-link to="/gallery">갤러리</router-link></v-tab>
-        <v-tab><router-link to="/">동물병원</router-link></v-tab>
-        <v-tab><router-link to="/store">스토어</router-link></v-tab>
-      </v-tabs>
+			<v-tabs
+				dark>
+				<v-tab>
+					<router-link to="/">반려상식</router-link>
+				</v-tab>
+				<v-tab>
+					<router-link to="/community">커뮤니티</router-link>
+				</v-tab>
+				<v-tab>
+					<router-link to="/gallery">갤러리</router-link>
+				</v-tab>
+				<v-tab>
+					<router-link to="/">동물병원</router-link>
+				</v-tab>
+				<v-tab>
+					<router-link to="/store">스토어</router-link>
+				</v-tab>
+			</v-tabs>
 
-      <ul class="navbar_gnb">
-        <li v-if="!this.$store.state.isLogin || this.$store.state.isLogin === false">
-          <router-link to="/login">로그인</router-link>
-          <router-link to="/signup">회원가입</router-link>
-          <router-link to="/mypage">내정보</router-link>
-        </li>
-        <li v-else>
-          <router-link to="/mypage">내정보</router-link>
-          <div @click="onClickLogout">로그아웃</div>
-        </li>
-      </ul>
+			<ul class="navbar_gnb">
+				<li v-if="!this.$store.state.isLogin || this.$store.state.isLogin === false">
+					<router-link to="/login">로그인</router-link>
+					<router-link to="/signup">회원가입</router-link>
+					<router-link to="/mypage">내정보</router-link>
+				</li>
+				<li v-else>
+					<router-link to="/mypage">내정보</router-link>
+					<div @click="onClickLogout">로그아웃</div>
+				</li>
+			</ul>
 
-    </v-toolbar>
-  </v-card>
+		</v-toolbar>
+	</v-card>
 </template>
 
 <!--<template>-->
@@ -62,113 +73,114 @@
 <!--</template>-->
 
 <script>
-export default {
-  name : "Navigation",
-  data() {
-    return {
-      isLogin: undefined,
-    }
-  },
-  mounted() {
-    this.isLogin = this.$store.state.isLogin;
-  },
-  methods: {
-    onClickLogout() {
-      this.$store.dispatch("logout")
-      this.$router.push({name: "Home"});
+  export default {
+    name: "Navigation",
+    data() {
+      return {
+        isLogin: undefined,
+      }
     },
+    mounted() {
+      this.isLogin = this.$store.state.isLogin;
+    },
+    methods: {
+      onClickLogout() {
+        this.$store.dispatch("logout")
+        this.$router.push({name: "Home"});
+      },
 
-  },
-}
+    },
+  }
 </script>
-
-
-
 
 
 <style scoped>
 
 
-  .v-sheet.v-card:not(.v-sheet--outlined) {
-    box-shadow: none;
-    background-color: rgba(247, 253, 95, 0.82);
-  }
+	.v-sheet.v-card:not(.v-sheet--outlined) {
+		box-shadow: none;
+	}
 
-  .v-card > *:last-child:not(.v-btn):not(.v-chip):not(.v-avatar) {
-    border-radius: 0;
-    background-color: rgba(247, 253, 95, 0.82);
-  }
+	/*background-color: rgba(247, 253, 95, 0.82);*/
 
-  .v-sheet.v-toolbar:not(.v-sheet--outlined) {
-    box-shadow: none;
-  }
+	.v-card > *:last-child:not(.v-btn):not(.v-chip):not(.v-avatar) {
+		border-radius: 0;
+	}
 
-  /*로고*/
-  .v-toolbar__title a {
-    font-size: 33px;
-    color: rgb(229, 119, 175);
-    font-family: 'Poor Story', cursive;
-    font-weight: bold;
-  }
+	/*background-color: rgba(247, 253, 95, 0.82);*/
 
-  /*탭 메뉴*/
-  .v-toolbar__content > .v-tabs, .v-toolbar__extension > .v-tabs {
-    flex: 0 0 auto;
-    width: 50%;
-  }
+	.v-sheet.v-toolbar:not(.v-sheet--outlined) {
+		box-shadow: none;
+	}
 
-  .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active),
-  .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) >
-  .v-icon, .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) >
-  .v-btn, .theme--light.v-tabs > .v-tabs-bar .v-tab--disabled {
-    color: #666;
-  }
+	/*로고*/
+	.v-toolbar__title a {
+		font-size: 33px;
+		color: rgb(229, 119, 175);
+		font-family: 'Poor Story', cursive;
+		font-weight: bold;
+	}
 
+	/*탭 메뉴*/
+	.v-toolbar__content > .v-tabs, .v-toolbar__extension > .v-tabs {
+		/*flex: 0 0 auto;*/
+		width: 50%;
+		/*flex: 0;*/
+	}
 
-  .navbar_gnb {
-    display: flex;
-  }
-
-  .navbar_gnb li {
-    padding: 8px 5px;
-    font-size: 11px;
-    font-family: 'Gowun Dodum', sans-serif;
-    font-weight: bold;
-  }
-
-  .navbar_gnb li a {
-    color: #555;
-  }
-
-  .navbar_gnb li a:nth-of-type(1) {
-    margin-right: 7px;
-  }
-
-  .v-application ul, .v-application ol {
-    padding-left: 0;
-  }
-
-  /*선택된 메뉴*/
-  .v-tabs:not(.v-tabs--vertical) .v-tab a{
-    font-family: 'Gowun Dodum', sans-serif;
-        font-weight: bold;
-        font-size: 14px;
-        color: #222;
-  }
-
-  .v-tab:before {
-    background-color: rgb(227, 96, 163);
-  }
-
-  /*.v-application .primary--text{*/
-  /*  color: #000 !important;*/
-  /*  background-color: #000 !important;*/
-  /*  caret-color: #000 !important;*/
-  /*}*/
+	.v-card {
+		padding: 15px 0;
+	}
 
 
+	.theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active),
+	.theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) >
+	.v-icon, .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) >
+	.v-btn, .theme--light.v-tabs > .v-tabs-bar .v-tab--disabled {
+		color: #666;
+	}
 
 
+	.navbar_gnb {
+		display: flex;
+	}
+
+	.navbar_gnb li {
+		padding: 8px 5px;
+		font-size: 11px;
+		font-family: 'Gowun Dodum', sans-serif;
+		font-weight: bold;
+	}
+
+	.navbar_gnb li a {
+		color: #555;
+	}
+
+	.navbar_gnb li a:nth-of-type(1) {
+		margin-right: 7px;
+	}
+
+	.v-application ul, .v-application ol {
+		padding-left: 0;
+	}
+
+	/*선택된 메뉴*/
+	.v-tabs:not(.v-tabs--vertical) .v-tab a {
+		font-family: 'Gowun Dodum', sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		color: #222;
+	}
+
+	.v-tab:before {
+		background-color: rgb(227, 96, 163);
+	}
+
+	/*.v-application .primary--text{*/
+	/*  color: #000 !important;*/
+	/*  background-color: #000 !important;*/
+	/*  caret-color: #000 !important;*/
+	/*}*/
 
 
 </style>

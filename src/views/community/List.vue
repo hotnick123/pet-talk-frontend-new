@@ -34,7 +34,8 @@
 		<b-pagination aria-controls="my-table" align="center" first-class="first" prev-class="prev" next-class="next"
       last-class="last"
       v-model="currentPage" :total-rows="totalItems" :per-page="perPage"
-      @change="handlerPagenation"></b-pagination>
+      @change="handlerPagenation">
+		</b-pagination>
 
 
 	</div>
