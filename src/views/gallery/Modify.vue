@@ -2,18 +2,24 @@
   <div>
     <h1>갤러리</h1>
     <div class="form_wrap">
-      <h2>글쓰기</h2>
+      <h2 v-if="id">글수정</h2>
+      <h2 v-else>글쓰기</h2>
       <b-input v-model="detail.title" placeholder="제목을 입력해주세요."></b-input>
       <b-form-textarea
           v-model="detail.content"
           placeholder="내용을 입력해 주세요"
           rows="13"
           max-rows="6"
-
       ></b-form-textarea>
       <div class="file-box">
-        <input type="text" class="design-input" value="파일명.jpg" v-model="fileName" readonly>
-        <b-form-file accept=".jpg, .png, .gif" plain id=file1 @change="handleFile"></b-form-file>
+        <div v-if="detail.imgPath">
+          <a :href="detail.imgPath">{{ detail.filename }}</a>
+          <span @click="onClickDeleteBtn" style="cursor: pointer"><v-icon>mdi-window-close</v-icon></span>
+        </div>
+        <div v-else>
+          <input type="text" class="design-input" value="파일명.jpg" v-model="fileName" readonly>
+          <b-form-file accept=".jpg, .png, .gif" plain id=file1 @change="handleFile"></b-form-file>
+        </div>
       </div>
     </div>
 
@@ -30,10 +36,12 @@ export default {
     if (this.id) {
       await api.get(`/gallery/${this.id}`)
           .then((res) => {
-            this.detail.title = res.data.data.title;
-            this.detail.content = res.data.data.content;
-            this.detail.writer = res.data.data.writer;
-            this.detail.createdAt = res.data.data.createdAt;
+            this.detail.title = res.data.data.gallery.title;
+            this.detail.content = res.data.data.gallery.content;
+            this.detail.writer = res.data.data.gallery.writer;
+            this.detail.createdAt = res.data.data.gallery.createdAt;
+            this.detail.filename = res.data.data.gallery.filename;
+            this.detail.imgPath = res.data.data.gallery.imgPath;
             console.log(res.data.data);
           })
           .catch((err) => {
@@ -54,6 +62,8 @@ export default {
         content: '',
         writer: '',
         createdAt: '',
+        imgPath: '',
+        filename: '',
       },
     }
   },
@@ -141,6 +151,23 @@ export default {
     },
     onClickCancleBtn() {
       this.$router.push({name: "GalleryList"});
+    },
+
+    async onClickDeleteBtn() {
+      if (confirm("이미지를 삭제하시겠습니까?")) {
+        await api.delete(`/gallery/delete/image/${this.id}`)
+            .then((res) => {
+              if (res) {
+                alert('이미지가 삭제 되었습니다.');
+                this.detail.imgPath = '';
+                this.detail.filename = '';
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+              alert('이미지 삭제 오류');
+            })
+      }
     }
   }
 }

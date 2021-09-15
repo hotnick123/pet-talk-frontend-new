@@ -10,10 +10,12 @@
                 class="mx-auto"
                 max-width="390"
             >
-              <v-img
-                  :src="b[0].imgPath"
-                  height="250"
-              ></v-img>
+              <div v-if="b[0].imgPath">
+                <v-img :src="b[0].imgPath" height="250"></v-img>
+              </div>
+              <div v-else>
+                <v-img src="https://pettalk-backend.s3.ap-northeast-2.amazonaws.com/gallery/noimage.jpg" height="250"></v-img>
+              </div>
 
               <v-card-title>
                 {{ b[0].title }}
@@ -24,7 +26,7 @@
               </v-card-subtitle>
               <v-list-item>
                 <v-list-item-subtitle>
-                  <strong>{{ b[1].nickname }}</strong> <span>{{ b[1].createdAt }}</span> <em>조회 {{ b[0].count }}</em>
+                  <strong>{{ b[1].nickname }}</strong><span>{{ b[1].createdAt }}</span> <em>조회 {{ b[0].count }}</em>
                 </v-list-item-subtitle>
               </v-list-item>
             </v-card>
@@ -42,7 +44,7 @@
     </b-pagination>
 
 
-	</div>
+  </div>
 
 </template>
 
@@ -57,6 +59,7 @@ export default {
   },
   data() {
     return {
+      noImagePath: '../assets/img/noimage.jpg',
       currentPage: 1, // 현재 페이지
       perPage: 9, // 페이지당 보여줄 갯수
       totalPage: '',
@@ -160,9 +163,9 @@ h1 {
 }
 
 .btn_wrap:after {
-	content: "";
-	display: block;
-	clear: both;
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .btn {
@@ -183,9 +186,9 @@ h1 {
 }
 
 .pagination:after {
-	content: "";
-	display: block;
-	clear: both;
+  content: "";
+  display: block;
+  clear: both;
 }
 
 

@@ -13,7 +13,8 @@
         </div>
       </div>
       <div class="content-detail-content">
-        <img :src=board.imgPath>
+        <img v-if="board.imgPath" :src=board.imgPath>
+        <img else src="../../assets/img/noimage.jpg">
       </div>
       <div class="content-detail-content">{{ this.board.content }}</div>
       <div class="content-detail-button">
@@ -29,14 +30,36 @@
             autocomplete="off"
             required
             v-model="commentInput"
+            @keyup="onKeyUpCommentBtn"
         ><button @click="onClickCommentBtn">등록</button>
       </div>
 
       <div v-for="(cl, index) in commentList" class="content-detail-comment" :key="index">
         <div>
-          <span class="commentNick">{{ cl.writerName }}</span>
-          <p class="commentContent">{{ cl.content }}</p>
-          <span class="commentTime">{{ cl.createdAt }}</span>
+          <!-- 닉네임 -->
+          <span class="commentNick">{{ cl[1].nickname }}</span>
+
+          <!-- 댓글 내용 -->
+          <div v-if="cl[0].edit === true" style="display: inline-block">
+            <input v-model="cl[0].editContent" style="border: 1px solid black" @keyup="onKeyupEditInput($event, cl[0].id, index)">
+          </div>
+          <div v-else>
+            <p class="commentContent" >{{ cl[0].content }}</p>
+          </div>
+
+          <!-- 댓글 작성일 -->
+          <span class="commentTime">{{ cl[0].createdAt }}</span>
+
+          <!-- 저장, 및 수정 삭제 버튼 -->
+          <div v-if="cl[0].edit === true" style="display: inline-block">
+            <span @click="onClickCommentSave(cl[0].id, index)">저장</span>
+            <span @click="onClickCancleBtn(cl[0].id, index)">취소</span>
+          </div>
+          <div v-else-if="!cl[0].edit && cl[1].id === userId">
+            <span @click="onClickCommentModify(cl[0].id, index)">수정</span>
+            <span @click="onClickCommentDelete(cl[0].id)">삭제</span>
+          </div>
+
         </div>
       </div>
     </b-card>
@@ -54,7 +77,7 @@ export default {
       alert("권한이 없습니다. 로그인 화면으로 이동합니다.");
       this.$router.push({name:"Login"});
     } else {
-      await this.fetchBoardDetail();
+      await this.fetchGalleryDetail();
     }
   },
   data() {
@@ -75,7 +98,7 @@ export default {
     };
   },
   methods: {
-    async fetchBoardDetail() {
+    async fetchGalleryDetail() {
       await api.get(`/gallery/${this.id}`)
           .then((res) => {
             console.log(res);
@@ -85,9 +108,9 @@ export default {
             // this.board.writerName = res.data.data.writerName;
             this.board.createdAt = dayjs(res.data.data.gallery.createdAt).format("YYYY-MM-DD HH:mm");
             this.board.imgPath = res.data.data.gallery.imgPath;
-            this.commentList = res.data.data.gallery.comment ? res.data.data.gallery.comment : [];
+            this.commentList = res.data.data.comment ? res.data.data.comment : [];
             this.commentList.map((v) => {
-              v.createdAt = dayjs(v.createdAt).format("YYYY-MM-DD HH:mm");
+              v[0].createdAt = dayjs(v[0].createdAt).format("YYYY-MM-DD HH:mm");
             })
           })
           .catch((err) => {
@@ -95,9 +118,11 @@ export default {
             alert("게시글 조회 오류");
           })
     },
+
     onClickModifyBtn() {
-      this.$router.push({name: "BoardModify", params: {id: this.id}});
+      this.$router.push({name: "GalleryModify", params: {id: this.id}});
     },
+
     onClickDeleteBtn() {
       if (confirm("삭제하시겠습니까?")) {
         api.delete(`/gallery/delete/${this.id}`)
@@ -120,15 +145,30 @@ export default {
     },
 
     async onClickCommentBtn() {
-      await api.post(`/comment/create/COMMUNITY/${this.id}`, {
+      if (this.validateComment()) {
+        await this.postComment();
+      }
+    },
+
+    async onKeyUpCommentBtn(e) {
+      if (e.keyCode === 13) {
+        if (this.validateComment()) {
+          await this.postComment();
+        }
+      }
+    },
+
+    async postComment() {
+      await api.post(`/comment/create/GALLERY/${this.id}`, {
         writer: this.userId,
         content: this.commentInput,
       })
           .then((res) => {
             if (res.data.resultCode === "SUCCESS") {
               // this.$router.push({name: "BoardDetail", params: {id: this.id}});
-              alert("댓글이 등록되었습니다.");
-              this.fetchBoardDetail();
+              alert('댓글 등록 성공');
+              this.fetchGalleryDetail();
+              this.commentInput = '';
             } else {
               alert("댓글 등록 실패");
             }
@@ -136,8 +176,82 @@ export default {
             console.log(err);
             alert("댓글 등록 실패");
           })
-    }
+    },
 
+    validateComment() {
+      if (!this.commentInput || this.commentInput.length === 0) {
+        alert('댓글을 입력해주세요.');
+        return false;
+      }
+      return true;
+    },
+
+    onClickCommentModify(commentId, index) {
+      this.commentList[index][0].edit = true;
+      this.commentList[index][0].editContent = this.commentList[index][0].content;
+      this.$forceUpdate();
+    },
+
+    onClickCancleBtn(commentId, index) {
+      delete this.commentList[index][0].edit;
+      delete this.commentList[index][0].editContent;
+      this.$forceUpdate();
+    },
+
+    async onClickCommentSave(commentId, index) {
+      try {
+        if (this.validationEditComment(index)) {
+          const { data } = await this.postSaveComment(commentId, this.commentList[index][0].editContent);
+          if (data) {
+            alert('수정 되었습니다.');
+            delete this.commentList[index][0].edit;
+            delete this.commentList[index][0].editContent;
+            await this.fetchGalleryDetail();
+          }
+        }
+      } catch (e) {
+        console.log(e);
+        alert('수정 실패');
+      }
+    },
+
+    async onClickCommentDelete(commentId) {
+      try {
+        const { data } = await this.deleteComment(commentId);
+        if (data) {
+          alert('삭제 되었습니다.');
+          await this.fetchGalleryDetail();
+        }
+      } catch (e) {
+        console.log(e);
+        alert('삭제 실패');
+      }
+    },
+
+    deleteComment(commentId) {
+      return api.delete(`/comment/delete/${commentId}`);
+    },
+
+    postSaveComment(commentId, editContent) {
+      return api.post(`/comment/modify/${commentId}`, {
+        content: editContent
+      })
+    },
+
+    async onKeyupEditInput(e, commentId, index) {
+      if (e.keyCode === 13) {
+        await this.onClickCommentSave(commentId, index);
+      }
+    },
+
+    validationEditComment(index) {
+      const target = this.commentList[index][0].editContent;
+      if (!target && target.length < 1) {
+        alert('댓글 내용을 입력해주세요.');
+        return false;
+      }
+      return true;
+    }
   },
 
 }
