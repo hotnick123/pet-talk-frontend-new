@@ -89,9 +89,9 @@ export default {
         id: '',
         title: '',
         content: '',
+        writerName: '',
         writer: '',
         createdAt: '',
-        writerName: '',
         imgPath: '',
       },
       commentInput: '',
@@ -102,12 +102,12 @@ export default {
       await api.get(`/gallery/${this.id}`)
           .then((res) => {
             console.log(res);
-            this.board.title = res.data.data.gallery.title;
-            this.board.content = res.data.data.gallery.content;
-            this.board.writer = res.data.data.gallery.writer;
-            // this.board.writerName = res.data.data.writerName;
-            this.board.createdAt = dayjs(res.data.data.gallery.createdAt).format("YYYY-MM-DD HH:mm");
-            this.board.imgPath = res.data.data.gallery.imgPath;
+            this.board.title = res.data.data.gallery.gallery.title;
+            this.board.content = res.data.data.gallery.gallery.content;
+            this.board.writerName = res.data.data.gallery.user.nickname;
+            this.board.writer = res.data.data.gallery.user.id;
+            this.board.createdAt = dayjs(res.data.data.gallery.gallery.createdAt).format("YYYY-MM-DD HH:mm");
+            this.board.imgPath = res.data.data.gallery.gallery.imgPath;
             this.commentList = res.data.data.comment ? res.data.data.comment : [];
             this.commentList.map((v) => {
               v[0].createdAt = dayjs(v[0].createdAt).format("YYYY-MM-DD HH:mm");

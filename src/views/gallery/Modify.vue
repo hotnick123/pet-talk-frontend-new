@@ -36,12 +36,12 @@ export default {
     if (this.id) {
       await api.get(`/gallery/${this.id}`)
           .then((res) => {
-            this.detail.title = res.data.data.gallery.title;
-            this.detail.content = res.data.data.gallery.content;
-            this.detail.writer = res.data.data.gallery.writer;
-            this.detail.createdAt = res.data.data.gallery.createdAt;
-            this.detail.filename = res.data.data.gallery.filename;
-            this.detail.imgPath = res.data.data.gallery.imgPath;
+            this.detail.title = res.data.data.gallery.gallery.title;
+            this.detail.content = res.data.data.gallery.gallery.content;
+            this.detail.writer = res.data.data.gallery.user.writer;
+            this.detail.createdAt = res.data.data.gallery.gallery.createdAt;
+            this.detail.filename = res.data.data.gallery.gallery.filename;
+            this.detail.imgPath = res.data.data.gallery.gallery.imgPath;
             console.log(res.data.data);
           })
           .catch((err) => {
