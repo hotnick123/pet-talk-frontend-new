@@ -130,7 +130,7 @@
 	.store_wrap {
 		width: 1200px;
 		margin-top: 100px;
-		height: 60vh;
+		/*height: 60vh;*/
 		display: flex;
 		flex-direction: column;
 		/*justify-content: space-evenly;*/

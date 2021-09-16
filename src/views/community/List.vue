@@ -12,13 +12,35 @@
 <!--      @row-clicked="rowClick"-->
 <!--		></b-table>-->
 
-    <div v-for="(b, index) in boardList" :key="index">
-      <span>{{b[0].id}}</span>
-      <router-link :to="`/community/detail/${b[0].id}`"><span>{{b[0].title}}</span></router-link>
-      <span>{{b[0].writerName}}</span>
-      <span>{{b[0].createdAt}}</span>
-      <span>{{b[0].count}}</span>
-    </div>
+<!--    <div v-for="(b, index) in boardList" :key="index">-->
+<!--      <span>{{b[0].id}}</span>-->
+<!--      <router-link :to="`/community/detail/${b[0].id}`"><span>{{b[0].title}}</span></router-link>-->
+<!--      <span>{{b[0].writerName}}</span>-->
+<!--      <span>{{b[0].createdAt}}</span>-->
+<!--      <span>{{b[0].count}}</span>-->
+<!--    </div>-->
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>등록일</th>
+					<th>조회</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr v-for="(b, index) in boardList" :key="index">
+					<td>{{b[0].id}}</td>
+					<td><router-link :to="`/community/detail/${b[0].id}`">{{b[0].title}}</router-link></td>
+					<td>{{b[0].writerName}}</td>
+					<td>{{b[0].createdAt}}</td>
+					<td>{{b[0].count}}</td>
+				</tr>
+			</tbody>
+		</table>
 
 		<!--		<div class="text-center">-->
 		<!--			<v-container>-->
@@ -45,7 +67,6 @@
       @change="handlerPagenation">
 		</b-pagination>
 
-
 	</div>
 
 </template>
@@ -66,29 +87,6 @@
         totalPage: '',
         totalItems: '',
         // bootstrap 'b-table' 필드 설정
-        fields: [
-          {
-            key: "id",
-            label: "번호"
-          },
-          {
-            key: "title",
-            label: "제목"
-          },
-          {
-            key: "writerName",
-            label: "작성자"
-          },
-          {
-            key: "createdAt",
-            label: "등록일",
-
-          },
-          {
-            key: "count",
-            label: "조회",
-          },
-        ],
         boardList: [],
         // items: items
       };
@@ -133,7 +131,7 @@
 <style scoped>
 	.board_wrap {
 		width: 1200px;
-		height: 100vh;
+		/*height: 100vh;*/
 		display: flex;
 		flex-direction: column;
 		/*justify-content: space-evenly;*/
@@ -143,6 +141,10 @@
 		font-family: 'Gowun Dodum', sans-serif;
 	}
 
+	a {
+
+	}
+
 	h1 {
 		font-size: 33px;
 		font-weight: bold;
@@ -150,10 +152,45 @@
 		color: rgb(229, 119, 175);
 	}
 
+	/*테이블*/
 	table {
 		margin-top: 50px;
-		--bs-table-striped-bg: none;
+		width: 100%;
+		/*table-layout: fixed;*/
+		text-align: center;
 	}
+
+	table th, td {
+		padding: 10px;
+	}
+
+	table thead tr th:nth-child(1) {
+		width: 7%;
+	}
+	table thead tr th:nth-child(2) {
+		width: 63%;
+	}
+	table thead tr th:nth-child(3) {
+		width: 10%;
+	}
+	table thead tr th:nth-child(4) {
+		width: 13%;
+	}
+	table thead tr th:nth-child(5) {
+		width: 7%;
+	}
+
+	table tbody tr td:nth-child(2) {
+		text-align: justify;
+
+	}
+
+	table tbody tr td:nth-child(2) a {
+		color: #212529;
+		display: block;
+		padding: 0px 35px;
+	}
+
 
 
 
@@ -177,5 +214,11 @@
 	.pagination {
 		margin-top: 50px;
 	}
+
+	.page-item .page-link {
+		color: red;
+	}
+
+
 
 </style>

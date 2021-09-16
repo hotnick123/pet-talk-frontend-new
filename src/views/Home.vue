@@ -142,7 +142,7 @@
           loop: true,
           pagination: {el: '.swiper-pagination', clickable: true},
           navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
-          // autoplay: {delay: 2500, disableOnInteraction: false}
+          autoplay: {delay: 2500, disableOnInteraction: false}
         }
       }
     }
@@ -296,9 +296,10 @@
 	#icon_wrap {
 		width: 100%;
 		/*padding: 50px 40px;*/
+		padding: 50px 0px;
 		box-sizing: border-box;
 		transition: 0.5s;
-		/*background-color: rgb(252, 228, 240);*/
+		background-color: rgba(238, 238, 238, 0.45);
 		margin-top: 50px;
 		/*border: 1px solid red;*/
 	}
@@ -316,7 +317,7 @@
 
 	#icon_wrap .inner h1 {
 		/*float: left;*/
-		margin-bottom: 25px;
+		margin-bottom: 35px;
 		font-size: 25px;
 	}
 
@@ -328,7 +329,8 @@
 
 	#icon_wrap .inner .icon article {
 		float: left;
-		margin-left: 65px;
+		/*margin-left: 65px;*/
+		margin-left: 165px;
 		width: 58px;
 	}
 
@@ -361,5 +363,9 @@
 	/*하단 줄배너*/
 	.banner {
 		margin-top: 150px;
+	}
+
+	.banner img{
+		max-width: 100%;
 	}
 </style>

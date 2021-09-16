@@ -6,8 +6,16 @@
 				<router-link to="/">PETTALK</router-link>
 			</v-toolbar-title>
 
+			<!--			<ul class="navbar">-->
+			<!--				<li><router-link to="/">반려상식</router-link></li>-->
+			<!--				<li><router-link to="/community">커뮤니티</router-link></li>-->
+			<!--				<li><router-link to="/gallery">갤러리</router-link></li>-->
+			<!--				<li><router-link to="/">동물병원</router-link></li>-->
+			<!--				<li><router-link to="/store">스토어</router-link></li>-->
+			<!--			</ul>-->
+
 			<v-tabs
-				dark>
+							dark>
 				<v-tab>
 					<router-link to="/">반려상식</router-link>
 				</v-tab>
@@ -31,7 +39,7 @@
 					<router-link to="/signup">회원가입</router-link>
 				</li>
 				<li v-else>
-          <div class="loginUser"><span>{{nickName}}</span>님</div>
+					<div class="loginUser"><span>{{nickName}}</span>님</div>
 					<router-link to="/mypage">내정보</router-link>
 					<button @click="onClickLogout">로그아웃</button>
 				</li>
@@ -96,7 +104,9 @@
 
 
 <style scoped>
-
+	.v-card {
+		padding: 15px 0;
+	}
 
 	.v-sheet.v-card:not(.v-sheet--outlined) {
 		box-shadow: none;
@@ -126,16 +136,34 @@
 	}
 
 	/*탭 메뉴*/
+	/*.navbar {*/
+	/*	border: 1px solid red;*/
+	/*	box-sizing: border-box;*/
+	/*	width: 60%;*/
+
+	/*}*/
+
+	/*.navbar li {*/
+	/*	border: 1px solid red;*/
+	/*	box-sizing: border-box;*/
+	/*}*/
+
+	/*.navbar li a{*/
+	/*	border: 1px solid red;*/
+	/*	box-sizing: border-box;*/
+	/*}*/
+
+
+
+
+
 	.v-toolbar__content > .v-tabs, .v-toolbar__extension > .v-tabs {
 		/*flex: 0 0 auto;*/
 		width: 50%;
 		/*flex: 0;*/
+		/*border: 1px solid red;*/
+		padding: 0 100px;
 	}
-
-	.v-card {
-		padding: 15px 0;
-	}
-
 
 	.theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active),
 	.theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) >
@@ -185,17 +213,22 @@
 		font-weight: bold;
 		font-size: 14px;
 		color: #222;
+		display: block;
+		/*border: 1px solid red;*/
 	}
 
+	/* li > a */
+	.v-tab a {
+		/*border: 1px solid red;*/
+		display: block;
+		padding: 10px 15px;
+	}
+
+	/*탭메뉴 클릭시 배경색깔 변경*/
 	.v-tab:before {
-		background-color: rgb(227, 96, 163);
+		/*background-color: rgb(239, 165, 203);*/
 	}
 
-	/*.v-application .primary--text{*/
-	/*  color: #000 !important;*/
-	/*  background-color: #000 !important;*/
-	/*  caret-color: #000 !important;*/
-	/*}*/
 
 
 </style>

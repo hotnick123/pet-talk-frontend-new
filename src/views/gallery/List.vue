@@ -136,7 +136,7 @@ em {
 
 .gallery_wrap {
   width: 1200px;
-  height: 100vh;
+  /*height: 100vh;*/
   display: flex;
   flex-direction: column;
   /*justify-content: space-evenly;*/
@@ -154,8 +154,20 @@ h1 {
   color: rgb(229, 119, 175);
 }
 
+.container {
+	margin-top: 50px;
+}
+
 .v-card {
   margin-bottom: 20px;
+}
+
+.v-card__title {
+	width: 100%;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	display: block;
 }
 
 .btn_wrap {
@@ -163,9 +175,9 @@ h1 {
 }
 
 .btn_wrap:after {
-  content: "";
-  display: block;
-  clear: both;
+	content: "";
+	display: block;
+	clear: both;
 }
 
 .btn {
@@ -186,9 +198,9 @@ h1 {
 }
 
 .pagination:after {
-  content: "";
-  display: block;
-  clear: both;
+	content: "";
+	display: block;
+	clear: both;
 }
 
 

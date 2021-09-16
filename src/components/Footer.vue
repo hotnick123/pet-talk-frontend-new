@@ -3,10 +3,10 @@
 		<div class="inner">
 			<div class="fl">
 				<ul>
-					<li><a href="">이용약관</a></li>
-					<li><a href="">개인정보취급방침</a></li>
-					<li><a href="">매장안내</a></li>
-					<li><a href="">고객센터</a></li>
+					<li><router-link to="">이용약관</router-link></li>
+					<li><router-link to="">개인정보취급방침</router-link></li>
+					<li><router-link to="">매장안내</router-link></li>
+					<li><router-link to="">고객센터</router-link></li>
 				</ul>
 
 				<p>
@@ -22,9 +22,7 @@
 					<P>월-금 : 오전 10시 ~ 오후 5시 (휴게시간 12:30 ~ 2:00)<br />토,일,공휴일 휴무</P>
 				</div>
 				<ul class="sns">
-					<li><a href=""><i class="fab fa-facebook-square"></i></a></li>
-					<li><a href=""><i class="fab fa-youtube"></i></a></li>
-					<li><a href=""><i class="fab fa-twitter"></i></a></li>
+
 
 					<li>
 						<router-link to=""><v-icon>mdi-facebook</v-icon></router-link>
@@ -51,14 +49,17 @@
 <style scoped>
 	#footer {
 		background: #fff;
-		margin-top: 300px;
+		/*margin-top: 300px;*/
 		position: relative;
 		transition: 0.5s;
 		border-top: 1px dashed #ddd;
 		padding: 50px 100px;
+		bottom: -50px;
+		/*color: rgb(229, 119, 175);*/
+		font-family: 'Gowun Dodum', sans-serif;
 	}
 
-	#footer:after {
+	#footer:after, #footer .inner:after {
 		content: "";
 		display: block;
 		clear: both;
@@ -90,19 +91,19 @@
 		margin-right: 40px; }
 
 	#footer .inner .fl ul li a {
-		font-size: 13px;
+		font-size: 15px;
 		border-bottom: 1px solid #666;
 		color: #111;
 	}
 
 	#footer .inner .fl p {
 		line-height: 25px;
-		font-size: 13px;
+		font-size: 15px;
 		margin: 22px 0;
 	}
 
 	#footer .inner .fl .copyRight {
-		font-size: 13px;
+		font-size: 15px;
 	}
 
 	#footer .inner .fr {
@@ -110,12 +111,12 @@
 	}
 
 	#footer .inner .fr p {
-		font-size: 13px;
+		font-size: 15px;
 		line-height: 25px;
 	}
 
 	#footer .inner .fr p em {
-		font-size: 20px;
+		font-size: 22px;
 		font-style: normal;
 		font-weight: 600;
 	}
@@ -135,5 +136,6 @@
 
 	#footer .inner .fr .sns li i {
 		font-size: 45px;
+		color: rgb(229, 119, 175);
 	}
 </style>
