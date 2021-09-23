@@ -45,13 +45,15 @@ export default {
   // },
   methods: {
     // ...mapActions(["login"]),
-    onClickLogin() {
+    async onClickLogin() {
       if (this.validation()) {
-        this.$store.dispatch("login", {
+        await this.$store.dispatch("login", {
           loginId: this.uid,
           password: this.password,
         })
-        this.$router.push({name: "Home"});
+        if (this.$store.state.isLogin) {
+          this.$router.push({name: "Home"});
+        }
       }
     },
     validation() {
