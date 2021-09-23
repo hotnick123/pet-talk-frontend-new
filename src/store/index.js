@@ -67,7 +67,7 @@ const store = new Vuex.Store({
         })
         .catch((e) => {
           console.log(e);
-          alert('이메일과 비밀번호를 확인하세용.')
+          alert('아이디와 비밀번호를 확인하세용.')
         })
     },
 

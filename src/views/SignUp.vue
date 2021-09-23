@@ -20,7 +20,7 @@
         <div class="int-area">
           <label for="pw">비밀번호</label>
           <div class="pw_description">
-            영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+            8자 이상의 비밀번호를 입력해주세요.
           </div>
           <input
               type="password"
